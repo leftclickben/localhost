@@ -24,6 +24,10 @@ $projectOverrides = array(
 		'local' => 'http://webshop.local/',
 		'test' => 'http://webshop.dev.cashconverters.com.au/',
 		'production' => 'http://webshop.cashconverters.com.au/'
+	),
+	'spreadsheet' => array(
+		'test' => 'spreadsheet/test/',
+		'production' => ''
 	)
 );
 // Specify the available environments; links to each environment will be generated for each project.
@@ -32,13 +36,13 @@ $environments = array(
 		'id' => 'local',
 		'label' => 'Local',
 		'urlPrefix' => '',
-		'useSubdir' => array( '/public', '/public_html' )
+		'useSubdir' => array( '/public', '/public_html', '/app' )
 	),
 	array(
 		'id' => 'test',
 		'label' => 'Test',
 		'urlPrefix' => 'http://test.leftclick.com.au/',
-		'useSubdir' => array( '/public', '/public_html' )
+		'useSubdir' => array( '/public', '/public_html', '/app' )
 	),
 	array(
 		'id' => 'production',
@@ -112,11 +116,13 @@ foreach ($projects as $project) {
 						<ul id="project-content-<?=$project['id']?>" class="project-content">
 <?php
 	foreach ($environments as $environment) {
+		if (!empty($project['linkUrl'][$environment['id']])) {
 ?>
 							<li class="project-link <?=$environment['id']?>">
 								<a href="<?=$project['linkUrl'][$environment['id']]?>" title="<?=$environment['label']?>" rel="external" class="button"><?=$environment['label']?></a>
 							</li>
 <?php
+		}
 	}
 ?>
 						</ul>
